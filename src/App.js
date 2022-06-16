@@ -9,7 +9,9 @@ import Home from "./container/Home";
 import Contact from "./container/Contact";
 import Appointment from "./container/Appointment";
 import LoginSignup from "./container/LoginSignup";
-import Login from "./container/Login.js";
+import Medicine from "./container/Medicine";
+import Forgot from "./container/Forgot";
+import UseRef from "./container/UseRef";
 
 function App() {
   return (
@@ -23,7 +25,10 @@ function App() {
         <Route exact path={'/contact'} component={Contact} />
         <Route exact path={'/appointment'} component={Appointment} />
         <Route exact path={'/login'} component={LoginSignup} />
-        <Route exact path={'/signin'} component={Login} />
+        {/* <Route exact path={'/signin'} component={Login} /> */}
+        <Route exact path={'/forgotpassword'} component={Forgot} />
+        <Route exact path={'/medicine'} component={Medicine} />
+        <Route exact path={'/refs'} component={UseRef} />
       </Switch>
       <Footer />
     </>

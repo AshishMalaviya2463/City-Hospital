@@ -2,11 +2,11 @@ import React from 'react'
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 
-const Login = () => {
-  return (
-    <>
-       <div className="container my-5">
-                <h2 className='mb-4'>Sign In</h2>
+const Forgot = () => {
+    return (
+        <>
+            <div className="container my-5">
+            <h2 className='mb-4'>Forgot Password</h2>
                 <Form>
                     <FormGroup>
                         <Label for="exampleEmail">
@@ -19,27 +19,13 @@ const Login = () => {
                             type="email"
                         />
                     </FormGroup>
-                    <FormGroup>
-                        <Label for="examplePassword">
-                            Password
-                        </Label>
-                        <Input
-                            id="examplePassword"
-                            name="password"
-                            placeholder="Enter Your Password"
-                            type="password"
-                        />
-                    </FormGroup>
-
                     <Button color="success">
                         Submit
                     </Button>
                 </Form>
                 <div className='mt-3'>
                     <p>
-                        If You Are A New User.
-                        <br />
-                        Create An Account {' '}{' '}
+                        Back to Sign In page{" "}
                         <NavLink
                             to="/login"
                         >
@@ -49,8 +35,8 @@ const Login = () => {
                     </p>
                 </div>
             </div>
-    </>
-  )
+        </>
+    )
 }
 
-export default Login
+export default Forgot
