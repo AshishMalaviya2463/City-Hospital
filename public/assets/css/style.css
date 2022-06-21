@@ -1752,3 +1752,6 @@ section {
 .main-header {
   height: 138px;
 }
+.validate{
+  color: red;
+}

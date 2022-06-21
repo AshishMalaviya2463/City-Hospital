@@ -25,7 +25,6 @@ function App() {
         <Route exact path={'/contact'} component={Contact} />
         <Route exact path={'/appointment'} component={Appointment} />
         <Route exact path={'/login'} component={LoginSignup} />
-        {/* <Route exact path={'/signin'} component={Login} /> */}
         <Route exact path={'/forgotpassword'} component={Forgot} />
         <Route exact path={'/medicine'} component={Medicine} />
         <Route exact path={'/refs'} component={UseRef} />
