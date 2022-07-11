@@ -13,23 +13,24 @@ import Medicine from "./container/Medicine";
 import UseRef from "./container/UseRef";
 import BookAppointment from "./container/Appointment/BookAppointment";
 import ListAppointment from "./container/Appointment/ListAppointment";
+import PublicRoute from "./container/routers/PublicRoute";
+import PrivetRoute from "./container/routers/PrivetRoute";
 
 function App() {
   return (
     <>
       <Header />
       <Switch>
-        <Route exact path={'/'} component={Home} />
-        <Route exact path={'/department'} component={Department} />
-        <Route exact path={'/doctors'} component={Doctors} />
-        <Route exact path={'/about'} component={About} />
-        <Route exact path={'/contact'} component={Contact} />
-        {/* <Route exact path={'/appointment'} component={Appointment} /> */}
-        <Route exact path={'/login'} component={LoginSignup} />
-        <Route exact path={'/medicine'} component={Medicine} />
+        <PublicRoute exact path={'/'} component={Home} />
+        <PublicRoute exact path={'/department'} component={Department} />
+        <PublicRoute exact path={'/doctors'} component={Doctors} />
+        <PublicRoute exact path={'/about'} component={About} />
+        <PublicRoute exact path={'/contact'} component={Contact} />
+        <PublicRoute exact path={'/login'} restrict={true} component={LoginSignup} />
+        <PublicRoute exact path={'/medicine'} component={Medicine} />
         <Route exact path={'/refs'} component={UseRef} />
-        <Route exact path={'/book_apt'} component={BookAppointment} />
-        <Route exact path={'/list_apt'} component={ListAppointment} />
+        <PrivetRoute exact path={'/book_apt'} component={BookAppointment} />
+        <PrivetRoute exact path={'/list_apt'} component={ListAppointment} />
       </Switch>
       <Footer />
     </>
