@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
+import TheamContext from '../context/TheamContext';
 
 const Footer = () => {
+    const theam = useContext(TheamContext);
     return (
         <>
-            <footer id="footer">
+            <footer id="footer" className={`${theam.theam.theam}`}>
                 <div className="container d-md-flex py-4">
                     <div className="me-md-auto text-center text-md-start">
                         <div>
@@ -24,7 +26,7 @@ const Footer = () => {
                         <a href="/" className="instagram"><i className="bx bxl-instagram" /></a>
                         <a href="/" className="google-plus"><i className="bx bxl-skype" /></a>
                         <a href="/" className="linkedin"><i className="bx bxl-linkedin" /></a>
-                        
+
                     </div>
                     <NavLink to="/refs" className="">Use Refs omponent</NavLink>
                 </div>
