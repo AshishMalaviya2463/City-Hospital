@@ -1,11 +1,17 @@
 import React from 'react'
+import { useContext } from 'react'
 import { NavLink } from 'react-router-dom/cjs/react-router-dom'
+import TheamContext from '../context/TheamContext'
 
 const Header = () => {
+
+  const theam = useContext(TheamContext);
+
+
   return (
     <>
       <div className="main-header">
-        <div id="topbar" className="d-flex align-items-center fixed-top">
+        <div id="topbar" className={`d-flex align-items-center fixed-top ${theam.theam.theam}`}>
           <div className="container d-flex justify-content-between">
             <div className="contact-info d-flex align-items-center">
               <i className="bi bi-envelope" /> <NavLink to="mailto:contact@example.com">cityhospital@example.com</NavLink>
@@ -17,9 +23,10 @@ const Header = () => {
               <NavLink to="/instagram" className="instagram"><i className="bi bi-instagram" /></NavLink>
               <NavLink to="/linkedin" className="linkedin"><i className="bi bi-linkedin" /></NavLink>
             </div>
+            <button className={theam.theam.theam === "light" ? "dark theambtn" : "light theambtn"} onClick={() => theam.toggleTheam(theam.theam.theam)}></button>
           </div>
         </div>
-        <header id="header" className="fixed-top">
+        <header id="header" className={`fixed-top ${theam.theam.theam}`}>
           <div className="container d-flex align-items-center">
             <div className="logo">
               <NavLink to="/">
@@ -40,7 +47,7 @@ const Header = () => {
                   <NavLink className="nav-link scrollto" to={'/about'}>About</NavLink></li>
                 <li>
                   <NavLink className="nav-link scrollto" to={'/contact'}>Contact</NavLink></li>
-                  <li>
+                <li>
                   <NavLink className="nav-link scrollto" to={'/medicine'}>Medicine</NavLink></li>
               </ul>
               <i className="bi bi-list mobile-nav-toggle" />
