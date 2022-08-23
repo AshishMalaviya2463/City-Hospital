@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Container, Row, Col, FormGroup, Button } from 'reactstrap'
 import * as yup from 'yup';
 import { Formik, Form, useFormik, Field } from 'formik';
+import { useDispatch } from "react-redux"
+import { authAction } from '../redux/action/authAction';
 
 const LoginSignup = () => {
   const [userType, setUserType] = useState('Login')
@@ -39,14 +41,17 @@ const LoginSignup = () => {
     }
   }
 
+  const dispatch = useDispatch()
   let schema = yup.object().shape(schemaObj);
 
-  const handleLogin = () => {
-    localStorage.setItem("user" , "Loged in");
+  const handleLogin = (data) => {
+    // localStorage.setItem("user", "Loged in");
+    console.log("login : ", data)
   }
 
-  const handleData = () => {
-
+  const handleSignIn = (data) => {
+    // console.log("view : ", data)
+    dispatch(authAction(data))
   }
 
   const formik = useFormik({
@@ -54,9 +59,9 @@ const LoginSignup = () => {
     validationSchema: schema,
     onSubmit: values => {
       if (userType === "Login") {
-        handleLogin();
+        handleLogin(values);
       } else {
-        handleData();
+        handleSignIn(values);
       }
     },
     enableReinitialize: true,
