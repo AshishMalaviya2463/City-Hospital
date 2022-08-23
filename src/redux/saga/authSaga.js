@@ -1,24 +1,24 @@
-import { all, call, put, takeEvery } from 'redux-saga/effects'
+import { all, call, takeEvery } from 'redux-saga/effects'
 import { signupapi } from '../../common/api/authApi';
 import * as ActionTypes from "../actionTypes"
 
 function* signUp(action) {
     try {
-        yield call(signupapi, action.payload);
-        // yield console.log("saga : ", action.payload)
-        //   yield put({type: "USER_FETCH_SUCCEEDED", user: user});
+        const user = yield call(signupapi, action.payload);
+        console.log(user)
     } catch (e) {
-        console.log(e)
-        //   yield put({type: "USER_FETCH_FAILED", message: e.message});
+        if (e.payload === "auth/email-already-in-use") {
+            console.log("This E-mail is Already Registered.")
+        }
     }
 }
 
-function* authWatcher() {
+function* signUpWatcher() {
     yield takeEvery(ActionTypes.SIGNUP_USER, signUp);
 }
 
 export default function* allAuthSagaWatcher() {
     yield all([
-        authWatcher()
+        signUpWatcher()
     ])
 }
