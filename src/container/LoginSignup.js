@@ -3,7 +3,7 @@ import { Container, Row, Col, FormGroup, Button } from 'reactstrap'
 import * as yup from 'yup';
 import { Formik, Form, useFormik, Field } from 'formik';
 import { useDispatch } from "react-redux"
-import { authAction } from '../redux/action/authAction';
+import { authAction, signInAction, signUpAction } from '../redux/action/authAction';
 
 const LoginSignup = () => {
   const [userType, setUserType] = useState('Login')
@@ -46,12 +46,12 @@ const LoginSignup = () => {
 
   const handleLogin = (data) => {
     // localStorage.setItem("user", "Loged in");
-    console.log("login : ", data)
+    dispatch(signInAction(data))
   }
 
   const handleSignIn = (data) => {
     // console.log("view : ", data)
-    dispatch(authAction(data))
+    dispatch(signUpAction(data))
   }
 
   const formik = useFormik({

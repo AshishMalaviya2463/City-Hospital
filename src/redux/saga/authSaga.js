@@ -1,5 +1,5 @@
 import { all, call, takeEvery } from 'redux-saga/effects'
-import { signupapi } from '../../common/api/authApi';
+import { signinapi, signupapi } from '../../common/api/authApi';
 import * as ActionTypes from "../actionTypes"
 
 function* signUp(action) {
@@ -13,12 +13,28 @@ function* signUp(action) {
     }
 }
 
+function* signIn(action) {
+    try {
+        const user = yield call(signinapi, action.payload);
+        console.log(user)
+    } catch (e) {
+        if (e.payload === "auth/wrong-password") {
+            console.log("Wrong E-mail or password.")
+        }
+    }
+}
+
 function* signUpWatcher() {
     yield takeEvery(ActionTypes.SIGNUP_USER, signUp);
 }
 
+function* signInWatcher() {
+    yield takeEvery(ActionTypes.SIGNIN_USER, signIn);
+}
+
 export default function* allAuthSagaWatcher() {
     yield all([
-        signUpWatcher()
+        signUpWatcher(),
+        signInWatcher()
     ])
 }
