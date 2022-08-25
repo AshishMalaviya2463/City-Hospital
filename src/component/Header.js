@@ -2,6 +2,7 @@ import React from 'react'
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom/cjs/react-router-dom'
 import TheamContext from '../context/TheamContext'
+import Alert from './Alert/Alert'
 
 const Header = () => {
 
@@ -11,6 +12,7 @@ const Header = () => {
   return (
     <>
       <div className="main-header">
+        <Alert />
         <div id="topbar" className={`d-flex align-items-center fixed-top ${theam.theam.theam}`}>
           <div className="container d-flex justify-content-between">
             <div className="contact-info d-flex align-items-center">

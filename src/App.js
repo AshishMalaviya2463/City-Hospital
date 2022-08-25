@@ -18,28 +18,31 @@ import PrivetRoute from "./container/routers/PrivetRoute";
 import { TheamProvider } from "./context/TheamContext";
 import { Provider } from "react-redux";
 import { store } from "./redux/store";
+import { SnackbarProvider } from 'notistack';
 
 function App() {
   return (
     <>
-      <Provider store={store}>
-        <TheamProvider>
-          <Header />
-          <Switch>
-            <PublicRoute exact path={'/'} component={Home} />
-            <PublicRoute exact path={'/department'} component={Department} />
-            <PublicRoute exact path={'/doctors'} component={Doctors} />
-            <PublicRoute exact path={'/about'} component={About} />
-            <PublicRoute exact path={'/contact'} component={Contact} />
-            <PublicRoute exact path={'/login'} restrict={true} component={LoginSignup} />
-            <PublicRoute exact path={'/medicine'} component={Medicine} />
-            <Route exact path={'/refs'} component={UseRef} />
-            <PrivetRoute exact path={'/book_apt'} component={BookAppointment} />
-            <PrivetRoute exact path={'/list_apt'} component={ListAppointment} />
-          </Switch>
-          <Footer />
-        </TheamProvider>
-      </Provider>
+      <SnackbarProvider maxSnack={3}>
+        <Provider store={store}>
+          <TheamProvider>
+            <Header />
+            <Switch>
+              <PublicRoute exact path={'/'} component={Home} />
+              <PublicRoute exact path={'/department'} component={Department} />
+              <PublicRoute exact path={'/doctors'} component={Doctors} />
+              <PublicRoute exact path={'/about'} component={About} />
+              <PublicRoute exact path={'/contact'} component={Contact} />
+              <PublicRoute exact path={'/login'} restrict={true} component={LoginSignup} />
+              <PublicRoute exact path={'/medicine'} component={Medicine} />
+              <Route exact path={'/refs'} component={UseRef} />
+              <PrivetRoute exact path={'/book_apt'} component={BookAppointment} />
+              <PrivetRoute exact path={'/list_apt'} component={ListAppointment} />
+            </Switch>
+            <Footer />
+          </TheamProvider>
+        </Provider>
+      </SnackbarProvider>
     </>
   );
 }

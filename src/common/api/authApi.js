@@ -11,13 +11,14 @@ export const signupapi = (data) => {
                     const user = userCredential.user;
                     sendEmailVerification(user)
                         .then(() => {
-                            res({ payload: user })
-                            console.log("please check your mail")
+                            res({ payload: "Registration Successfull. Please check your mail" })
                         })
                 })
                 .catch((error) => {
                     const errorCode = error.code;
-                    rej({ payload: errorCode })
+                    if (errorCode === "auth/email-already-in-use") {
+                        rej({ payload: "This E-mail is Already Registered." })
+                    }
                 });
         } catch (error) {
             const errorCode = error.code;
@@ -35,14 +36,19 @@ export const signinapi = (data) => {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     if (user.emailVerified) {
-                        res(user)
+                        res({ payload: "Log In Successfull." })
                     } else {
-                        res("check your mail")
+                        rej({ payload: "Please check your mail" })
                     }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
-                    rej({ payload: errorCode })
+                    console.log(errorCode)
+                    if (errorCode === "auth/wrong-password") {
+                        rej({ payload: "Wrong E-mail or password." })
+                    } else if (errorCode === "auth/user-not-found") {
+                        rej({ payload: "E-mail not found." })
+                    }
                 });
         } catch (error) {
             const errorCode = error.code;
