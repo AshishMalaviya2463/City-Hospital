@@ -3,10 +3,17 @@ import { useContext } from 'react'
 import { NavLink } from 'react-router-dom/cjs/react-router-dom'
 import TheamContext from '../context/TheamContext'
 import Alert from './Alert/Alert'
+import { useSelector, useDispatch } from 'react-redux'
+import { signOut } from '../redux/action/authAction'
+import { setAlert } from '../redux/action/alertAction'
 
 const Header = () => {
 
   const theam = useContext(TheamContext);
+
+  const dispatch = useDispatch()
+
+  const auth = useSelector(state => state.auth)
 
 
   return (
@@ -56,7 +63,19 @@ const Header = () => {
             </nav>
             <NavLink className="appointment-btn scrollto" to={'/book_apt'}><span className="d-none d-md-inline">Make an</span>
               Appointment</NavLink>
-            <NavLink className="appointment-btn scrollto" to={'/login'}><span className="d-none d-md-inline">Login/ Signup</span></NavLink>
+            {
+              auth.user === null ?
+                <NavLink className="appointment-btn scrollto" to={'/login'}>
+                  <span className="d-none d-md-inline">Login/ Signup</span>
+                </NavLink>
+                :
+                <NavLink className="appointment-btn scrollto" to={'/login'}>
+                  <span className="d-none d-md-inline" onClick={() => {
+                    dispatch(signOut())
+                  }}>Logout</span>
+                </NavLink>
+            }
+
           </div>
         </header>
       </div>

@@ -36,7 +36,7 @@ export const signinapi = (data) => {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     if (user.emailVerified) {
-                        res({ payload: "Log In Successfull." })
+                        res({ payload: user })
                     } else {
                         rej({ payload: "Please check your mail" })
                     }
