@@ -13,12 +13,12 @@ export const authReducer = (state = initState, action) => {
                 user: action.payload,
                 error: ''
             }
-        case ActionTypes.SIGNOUT_USER:
+        case ActionTypes.SIGNEDOUT_USER:
             return {
                 ...state,
                 isLoading: false,
-                error: '',
-                user: null
+                user: null,
+                error: ""
             }
         default:
             return state

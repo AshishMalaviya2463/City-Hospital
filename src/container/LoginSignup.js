@@ -3,7 +3,7 @@ import { Container, Row, Col, FormGroup, Button } from 'reactstrap'
 import * as yup from 'yup';
 import { Formik, Form, useFormik, Field } from 'formik';
 import { useDispatch } from "react-redux"
-import { authAction, signInAction, signUpAction } from '../redux/action/authAction';
+import { authAction, forgotAction, signInAction, signUpAction } from '../redux/action/authAction';
 
 const LoginSignup = () => {
   const [userType, setUserType] = useState('Login')
@@ -45,23 +45,32 @@ const LoginSignup = () => {
   let schema = yup.object().shape(schemaObj);
 
   const handleLogin = (data) => {
-    // localStorage.setItem("user", "Loged in");
+    localStorage.setItem("user", "Loged in");
     dispatch(signInAction(data))
   }
 
   const handleSignIn = (data) => {
-    // console.log("view : ", data)
+    console.log("sign : ", data)
     dispatch(signUpAction(data))
+  }
+
+  const handleForgot = (data) => {
+    console.log("forgot : ", data)
+    dispatch(forgotAction(data))
   }
 
   const formik = useFormik({
     initialValues: initVal,
     validationSchema: schema,
     onSubmit: values => {
-      if (userType === "Login") {
-        handleLogin(values);
+      if (!reset) {
+        if (userType === "Login") {
+          handleLogin(values);
+        } else {
+          handleSignIn(values);
+        }
       } else {
-        handleSignIn(values);
+        handleForgot(values);
       }
     },
     enableReinitialize: true,
@@ -99,14 +108,38 @@ const LoginSignup = () => {
                       </FormGroup>
                     </Col>
                 }
-                <Col md={8}>
-                  <FormGroup className="mt-3 mt-md-0">
-                    <Field type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} value={values.email || ''} onBlur={handleBlur} />
-                    {errors.email && touched.email ? (
-                      <div className="validate">{errors.email}</div>
-                    ) : null}
-                  </FormGroup>
-                </Col>
+                {
+                  !reset ?
+                    <Col md={8}>
+                      <FormGroup className="mt-3 mt-md-0">
+                        <Field type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} value={values.email || ''} onBlur={handleBlur} />
+                        {errors.email && touched.email ? (
+                          <div className="validate">{errors.email}</div>
+                        ) : null}
+                      </FormGroup>
+                    </Col>
+                    :
+                    <>
+                      <Col md={8}>
+                        <FormGroup className="mt-3 mt-md-0">
+                          <Field type="email" className="form-control" name="email" id="email" placeholder="Your Email" onChange={handleChange} value={values.email || ''} onBlur={handleBlur} />
+                          {errors.email && touched.email ? (
+                            <div className="validate">{errors.email}</div>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                      <Col md={8}>
+                        <FormGroup className="mt-3 mt-md-0">
+                          <Field type="password" name="password" className="form-control" id="password" placeholder="Your New Password" autoComplete="off" onChange={handleChange} value={values.password || ''} onBlur={handleBlur} />
+
+                          {errors.password && touched.password ? (
+                            <div className="validate">{errors.password}</div>
+                          ) : null}
+                        </FormGroup>
+                      </Col>
+                    </>
+
+                }
                 {
                   !reset ?
                     <Col md={8}>
@@ -126,7 +159,9 @@ const LoginSignup = () => {
                 {
                   !reset ?
                     userType === 'Login' ?
-                      <Button type="submit" className='shadow-none'>Login</Button> : <Button type="submit" className='shadow-none'>Signup</Button>
+                      <Button type="submit" className='shadow-none'>Login</Button>
+                      :
+                      <Button type="submit" className='shadow-none'>Signup</Button>
                     :
                     <Button type="submit" className='shadow-none'>Submit</Button>
                 }
@@ -150,7 +185,9 @@ const LoginSignup = () => {
                   <div className="text-center mb-3">
                     {
                       !reset ?
-                        <a href='js:' onClick={() => { setReset(true) }} className='text-primary text-decoration-underline'>Forgot Password?</a>
+                        <a href='js:' onClick={() => {
+                          setReset(true)
+                        }} className='text-primary text-decoration-underline'>Forgot Password?</a>
                         :
                         null
                     }

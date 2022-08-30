@@ -33,7 +33,7 @@ function App() {
               <PublicRoute exact path={'/doctors'} component={Doctors} />
               <PublicRoute exact path={'/about'} component={About} />
               <PublicRoute exact path={'/contact'} component={Contact} />
-              <PublicRoute exact path={'/login'} restrict={true} component={LoginSignup} />
+              <PublicRoute exact path={'/login'} component={LoginSignup} />
               <PublicRoute exact path={'/medicine'} component={Medicine} />
               <Route exact path={'/refs'} component={UseRef} />
               <PrivetRoute exact path={'/book_apt'} component={BookAppointment} />

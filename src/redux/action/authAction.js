@@ -15,6 +15,13 @@ export const signedinAction = (data) => (dispatch) => {
 }
 
 export const signOut = () => (dispatch) => {
-    dispatch(setAlert({ text: "Logout Successfull.", color: "success" }))
     dispatch({ type: ActionTypes.SIGNOUT_USER })
+}
+
+export const signedOut = () => (dispatch) => {
+    dispatch({ type: ActionTypes.SIGNEDOUT_USER })
+}
+
+export const forgotAction = (data) => (dispatch) => {
+    dispatch({ type: ActionTypes.FORGOT_PWD, payload: data })
 }
