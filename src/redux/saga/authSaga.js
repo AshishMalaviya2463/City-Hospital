@@ -1,5 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects'
-import { forgotApi, signinapi, signOutApi, signupapi } from '../../common/api/authApi';
+import { forgotApi, googleSigninApi, signinapi, signOutApi, signupapi } from '../../common/api/authApi';
 import { setAlert } from '../action/alertAction';
 import * as ActionTypes from "../actionTypes"
 import { signedinAction, signedOut } from "../action/authAction"
@@ -24,6 +24,19 @@ function* signIn(action) {
         yield put(setAlert({ text: e.payload, color: "error" }))
     }
 }
+
+function* googleSignIn(action) {
+    try {
+        const user = yield call(googleSigninApi);
+        yield put(signedinAction(user.payload))
+        yield history.push("/")
+        yield put(setAlert({ text: "Login Succesfull.", color: "success" }))
+    } catch (e) {
+        yield put(setAlert({ text: e.payload, color: "error" }))
+        console.log(e)
+    }
+}
+
 
 function* signOut(action) {
     try {
@@ -55,6 +68,10 @@ function* signInWatcher() {
     yield takeEvery(ActionTypes.SIGNIN_USER, signIn);
 }
 
+function* googleSignInWatcher() {
+    yield takeEvery(ActionTypes.GOOGLESIGNIN_USER, googleSignIn);
+}
+
 function* signOutWatcher() {
     yield takeEvery(ActionTypes.SIGNOUT_USER, signOut);
 }
@@ -70,6 +87,7 @@ export default function* allAuthSagaWatcher() {
         signUpWatcher(),
         signInWatcher(),
         signOutWatcher(),
-        forgotPwdWatcher()
+        forgotPwdWatcher(),
+        googleSignInWatcher()
     ])
 }

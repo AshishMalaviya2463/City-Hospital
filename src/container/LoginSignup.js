@@ -3,7 +3,7 @@ import { Container, Row, Col, FormGroup, Button } from 'reactstrap'
 import * as yup from 'yup';
 import { Formik, Form, useFormik, Field } from 'formik';
 import { useDispatch } from "react-redux"
-import { authAction, forgotAction, signInAction, signUpAction } from '../redux/action/authAction';
+import { authAction, forgotAction, googleignInAction, signInAction, signUpAction } from '../redux/action/authAction';
 
 const LoginSignup = () => {
   const [userType, setUserType] = useState('Login')
@@ -57,6 +57,10 @@ const LoginSignup = () => {
   const handleForgot = (data) => {
     console.log("forgot : ", data)
     dispatch(forgotAction(data))
+  }
+
+  const handleGoogleSignin = () => {
+    dispatch(googleignInAction())
   }
 
   const formik = useFormik({
@@ -159,9 +163,15 @@ const LoginSignup = () => {
                 {
                   !reset ?
                     userType === 'Login' ?
-                      <Button type="submit" className='shadow-none'>Login</Button>
+                      <>
+                        <Button type="submit" className='shadow-none'>Login</Button>
+                        <p>or</p>
+                        <Button type="button" className='shadow-none' onClick={() => handleGoogleSignin()}>Login with Google</Button>
+                      </>
                       :
-                      <Button type="submit" className='shadow-none'>Signup</Button>
+                      <>
+                        <Button type="submit" className='shadow-none'>Signup</Button>
+                      </>
                     :
                     <Button type="submit" className='shadow-none'>Submit</Button>
                 }

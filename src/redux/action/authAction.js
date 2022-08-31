@@ -10,6 +10,12 @@ export const signInAction = (data) => (dispatch) => {
     // console.log("action : ", data)
 }
 
+
+export const googleignInAction = () => (dispatch) => {
+    dispatch({ type: ActionTypes.GOOGLESIGNIN_USER });
+    // console.log("action : ", data)
+}
+
 export const signedinAction = (data) => (dispatch) => {
     dispatch({ type: ActionTypes.SIGNEDIN_USER, payload: data })
 }
