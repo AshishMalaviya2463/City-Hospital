@@ -28,8 +28,6 @@ export const signupapi = (data) => {
 }
 
 export const signinapi = (data) => {
-    // console.log("api : ", data)
-
     return new Promise((res, rej) => {
         try {
             signInWithEmailAndPassword(auth, data.email, data.password)
